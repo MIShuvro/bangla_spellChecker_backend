@@ -4,7 +4,9 @@ module.exports.spellCheck = async (req, res) => {
 
     // // Get Dictionary
     // const data = await fs.readFileSync('E:/10MS/banglaSpellChecker/controllers/BengaliWordList_main.txt')
-    const file = await fs.readFileSync('E:/10MS/banglaSpellChecker/controllers/BengaliWordList_main.txt')
+    const path = require('path')
+    const file = await fs.readFileSync(path.join(__dirname + '/BengaliWordList_main.txt'))
+    //E: /10MS/banglaSpellChecker / controllers
     const dictionaryWords = file.toString()
     const dictionaryWordlist = dictionaryWords.split(' ', file.length)
     var dictionary;
