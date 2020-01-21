@@ -2,8 +2,6 @@ const fs = require('fs')
 
 module.exports.spellCheck = async (req, res) => {
 
-    // // Get Dictionary
-    // const data = await fs.readFileSync('E:/10MS/banglaSpellChecker/controllers/BengaliWordList_main.txt')
     const path = require('path')
     const file = await fs.readFileSync(path.join(__dirname + '/BengaliWordList_main.txt'))
     const dictionaryWords = file.toString()
@@ -16,17 +14,17 @@ module.exports.spellCheck = async (req, res) => {
 
     const response = req.body.filter(element => dictionary.indexOf(element) == -1)
 
-    var wrongword = [];
+    var words = [];
     for (i = 0; i < response.length; i++) {
-        if (wrongword.indexOf(response[i]) === -1) {
-            wrongword.push(response[i]);
+        if (words.indexOf(response[i]) === -1) {
+            words.push(response[i]);
         }
     }
     res.status(200).json({
         "code": 200,
         "status": "OK",
         "data": {
-            wrongword
+            words
         }
 
     })
