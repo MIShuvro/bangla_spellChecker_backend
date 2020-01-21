@@ -1,9 +1,11 @@
 const Router = require('express').Router()
 
 const {
-    spellCheck
+    spellCheck,
+    addToDictonary
 } = require('../controllers/spellCheckController')
 
 Router.post('/bangla', spellCheck)
+Router.post('/bangla/add', addToDictonary)
 
 module.exports = Router
