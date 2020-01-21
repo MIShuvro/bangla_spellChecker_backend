@@ -35,7 +35,7 @@ module.exports.spellCheck = async (req, res) => {
 module.exports.addToDictonary = (req, res) => {
     const path = require('path')
     if (req.body.word && req.body.word.length > 0) {
-        fs.appendFile(path.join(__dirname + '/BengaliWordList_main.txt'), "\n" + req.body.word.replace(/\n|\r/g, ""), (error) => {
+        fs.appendFile(path.join(__dirname + '/addNewWord.txt'), "\n" + req.body.word.replace(/\n|\r/g, ""), (error) => {
             if (error) {
                 res.status(500).json({
                     "code": 500,
