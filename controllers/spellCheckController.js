@@ -1,16 +1,20 @@
 const fs = require('fs')
+const path = require('path')
 
 module.exports.spellCheck = async (req, res) => {
 
-    const path = require('path')
-    const file = await fs.readFileSync(path.join(__dirname + '/BengaliWordList_main.txt'))
-    const dictionaryWords = file.toString()
-    const dictionaryWordlist = dictionaryWords.split(' ', file.length)
-    var dictionary;
-    dictionaryWordlist.map(data => {
+    dictionaryWords = ''
 
-        dictionary = data.split(/\r\n|\n|\r/)
-    })
+    const customDictionary = await fs.readFileSync(path.join(__dirname + '/bnCustomDictionray.txt'))
+    const bnMain = await fs.readFileSync(path.join(__dirname + '/BengaliWordList_main.txt'))
+
+    dictionaryWords = customDictionary.toString() + ' ' + bnMain.toString()
+
+    const dictionaryWordlist = dictionaryWords.split('\n', bnMain.length)
+
+    var dictionary = dictionaryWordlist;
+
+    // console.log(dictionary)
 
     const response = req.body.filter(element => dictionary.indexOf(element) == -1)
 
@@ -33,7 +37,7 @@ module.exports.spellCheck = async (req, res) => {
 module.exports.addToDictonary = (req, res) => {
     const path = require('path')
     if (req.body.word && req.body.word.length > 0) {
-        fs.appendFile(path.join(__dirname + '/addNewWord.txt'), "\n" + req.body.word.replace(/\n|\r/g, ""), (error) => {
+        fs.appendFile(path.join(__dirname + '/bnCustomDictionray.txt'), "\n" + req.body.word.replace(/\n|\r/g, ""), (error) => {
             if (error) {
                 res.status(500).json({
                     "code": 500,
